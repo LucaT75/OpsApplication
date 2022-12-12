@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:tns="http://opsApplication.io/OpsService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Ops" targetNamespace="http://opsApplication.io/OpsService/">
+  <wsdl:types>
+<xs:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:tns="http://opsApplication.io/OpsService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+ attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://opsApplication.io/OpsService/">
+   <xs:complexType name="documentMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="note" type="xs:string"/>
+      <xs:element minOccurs="0" name="receiptDate" type="xs:anySimpleType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="createDocument">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:documentMetadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="createDocumentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:documentMetadata"/>
+    </xs:sequence>
+  </xs:complexType>  
+  <xs:element name="createDocument" nillable="true" type="tns:createDocument"/>
+  <xs:element name="createDocumentResponse" nillable="true" type="tns:createDocumentResponse"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="createDocument">
+    <wsdl:part element="tns:createDocument" name="input">
+    </wsdl:part>
+  </wsdl:message>
+   <wsdl:message name="createDocumentResponse">
+    <wsdl:part element="tns:createDocumentResponse" name="input">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Ops">
+    <wsdl:operation name="createDocument">
+      <wsdl:input message="tns:createDocument" name="createDocument">
+    </wsdl:input>
+      <wsdl:output message="tns:createDocumentResponse" name="createDocumentResponse">
+    </wsdl:output>
+    </wsdl:operation>    
+  </wsdl:portType>
+  <wsdl:binding name="OpsServiceSoapBinding" type="tns:Ops">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createDocument">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createDocument">
+        <soap:body parts="input" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createDocumentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Ops">
+    <wsdl:port binding="tns:OpsServiceSoapBinding" name="OpsPort">
+      <soap:address location="http://localhost:9080/opsApplication/OpsService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
